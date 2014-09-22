@@ -13,7 +13,7 @@ public class Percolation {
 		for (int i = 1; i <= _arraySize; i++)
 		{
 			_ufAlg.union(0, i);					// connect top line to virtual top
-			_ufAlg.union(N + 1, getId(i, N));	// connect bottom line to virtual bottom
+			_ufAlg.union(N*N + 1, getId(i, N));	// connect bottom line to virtual bottom
 		}
 	}
 	
@@ -43,15 +43,17 @@ public class Percolation {
 		else {help[3][0] = i;help[3][1] = j - 1;}
 		
 		int[] neighbors = new int[size];
-		StdOut.println("Array size: " + size);
-		int skippedNeighbor = 0;
+
+		
+int skippedNeighbor = 0;
 		for (int iter = 0; iter < 4; iter++)
 			if (help[iter][0] != -1)
 			{	
 				int neighborId = getId(help[iter][0], help[iter][1]);
-				StdOut.println("Neighbor position - x: " + help[iter][0] + "; y: " + help[iter][1] + "; id: " + neighborId + "; Iterator value: " + iter);
 				if (_states[neighborId])	// open state
+				{
 					neighbors[iter - skippedNeighbor] = neighborId;
+				}
 			}
 			else ++skippedNeighbor;
 
@@ -65,10 +67,8 @@ public class Percolation {
 		int[] neighbors = getNearOpenNodes(i, j);
 		_states[currentId] = true;
 		
-		StdOut.println("x: " + i + "; y: " + j + "; Current id: " + currentId);
-		
 		for (int neighborId : neighbors)
-			_ufAlg.union(neighborId, currentId);
+			if (neighborId != 0) _ufAlg.union(neighborId, currentId);
 	}
 	
 	public boolean isOpen(int i, int j)
@@ -80,7 +80,6 @@ public class Percolation {
 	public boolean isFull(int i, int j)
 	{
 		if ( i < 1 || i > _arraySize || j < 1 || j > _arraySize)	throw new IndexOutOfBoundsException("i: " + i + "; j: " + j + "; They must be greater or equal to 1, and less or equal to " + _arraySize);
-		//return (_states[getId(i,j)]);
 		return _ufAlg.connected(getId(i,j), 0);
 	}
 	
@@ -106,18 +105,11 @@ public class Percolation {
 			
 			if (!perObject.isOpen(i,j))
 			{
-				StdOut.println("Opened site - x: " + i + "; y: " + j);
 				perObject.open(i, j);
 				openedSites++;
 			}
-			else
-			{
-				StdOut.println("Site is already OPENed");
-			}
-
-//			StdOut.println("=====================================");
-		}
-		float percolationThreshold = ((float) openedSites) / (perObject._arraySize * perObject._arraySize);
+		}		
+		double percolationThreshold = ((double) openedSites) / (perObject._arraySize * perObject._arraySize);
 		StdOut.println("Opened [" + openedSites + "] sites");
 		StdOut.println("Total site size: " + perObject._arraySize * perObject._arraySize);
 		StdOut.println("Percolation threshold: " + percolationThreshold);
