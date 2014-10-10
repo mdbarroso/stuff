@@ -35,7 +35,7 @@ public:
   ~HashMap();
   int getLength();
   unsigned int getValue(string key);
-  void setValue(string key, unsigned int value);
+  void setValue(string key);
   unsigned long hashFunction(string key, int maxSize);
 
 };

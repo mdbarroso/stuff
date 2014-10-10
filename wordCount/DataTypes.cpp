@@ -3,7 +3,7 @@
 HashEntry::HashEntry(string key)
 {
     this->keyM = key;
-    this->valueM = 0;
+    this->valueM = 1;
     this->nextM = NULL;
 }
 
@@ -76,7 +76,7 @@ unsigned int HashMap::getValue(string key)
     cout << "Value: " << value << endl;
 }
 
-void HashMap::setValue(string key, unsigned int value)
+void HashMap::setValue(string key)
 {
     unsigned long hash = this->hashFunction(key, this->lengthM);
 //    cout << "aqui?!" << hash <<endl;
@@ -89,10 +89,13 @@ void HashMap::setValue(string key, unsigned int value)
     {
 //        cout << "Collision; advancing pointer" << endl;
         HashEntry* nextNode = this->hashNodes[hash];
-        if (nextNode->getKey().compare(key) == 0) nextNode->incrementCounter();
-        while (nextNode->getNext() != NULL) 
+        while (nextNode != NULL) 
         {
-            if (nextNode->getKey().compare(key) == 0) nextNode->incrementCounter();
+            if (nextNode->getKey().compare(key) == 0)
+            {
+                nextNode->incrementCounter();
+                break;
+            }
             nextNode = nextNode->getNext();
         }
         nextNode->nextM = new HashEntry(key);
@@ -105,13 +108,17 @@ int main(int argc, char* argv[])
   HashMap pepe = HashMap(MAX_LENGTH);
 //  cout << "Key: " << paco.getKey() << "; Value: " << paco.getValue() << endl;
 
-  pepe.setValue("pixas", 0);       pepe.setValue("pixas", 0);
- pepe.setValue("pixas", 0);
- pepe.setValue("pixas", 0);
- pepe.setValue("pixas", 0);
- pepe.setValue("pixas", 0);
- pepe.setValue("pixas", 0);
+ pepe.setValue("pixas");
+ pepe.setValue("pixas");
+ pepe.setValue("pixas");
+ pepe.setValue("pixas");
+ pepe.setValue("xas");
+ pepe.setValue("pixas");
+ pepe.setValue("xas");
+ pepe.setValue("pixas");
+ pepe.setValue("xas");
 
  pepe.getValue("pixas");
+ pepe.getValue("xas");
 
 }
