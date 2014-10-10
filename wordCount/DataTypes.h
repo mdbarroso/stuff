@@ -11,31 +11,31 @@ using namespace std;
 
 #define	MAX_LENGTH	4096	// 4K elements
 
-template <class K, class V>
 class HashEntry {
-  K keyM;
-  V valueM;
+  string keyM;
+  unsigned int valueM;
 
 public:
   HashEntry* nextM;
-  HashEntry(K key, V value);
-  K getKey();
-  V getValue();
+  HashEntry(string key);
+  string getKey();
+  unsigned int getValue();
+  void incrementValue();
   HashEntry* getNext();
+  void incrementCounter();
 };
 
-template <class K, class V>
 class HashMap {
   
-  HashEntry<K,V> **hashNodes;
+  HashEntry **hashNodes;
   int lengthM;
 
 public:
   HashMap(int maxLength);
   ~HashMap();
   int getLength();
-  V getValue(K key);
-  void setValue(K key, V value);
-  unsigned long hashFunction(string key);
+  unsigned int getValue(string key);
+  void setValue(string key, unsigned int value);
+  unsigned long hashFunction(string key, int maxSize);
 
 };
