@@ -62,8 +62,7 @@ HashMap::hashFunction(string word, int maxSize)
     int c;
     const char* str = word.c_str();
 
-    while (c = *str++)
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    while (c = *str++) hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
     return hash % maxSize;
 }
@@ -71,23 +70,26 @@ HashMap::hashFunction(string word, int maxSize)
 unsigned int HashMap::getValue(string key)
 {
     unsigned long hash = this->hashFunction(key, this->lengthM);
-//    cout << "hash: " << hash << endl;
-    unsigned int value = this->hashNodes[hash]->getValue();
-    cout << "Value: " << value << endl;
+    HashEntry* nextNode = this->hashNodes[hash];
+    while (nextNode != NULL)
+    {
+        if (nextNode->getKey().compare(key) == 0)
+        {
+            return nextNode->getValue();
+        }
+    }
+    return 0;
 }
 
 void HashMap::setValue(string key)
 {
     unsigned long hash = this->hashFunction(key, this->lengthM);
-//    cout << "aqui?!" << hash <<endl;
     if (this->hashNodes[hash] == NULL)
     {
         this->hashNodes[hash] = new HashEntry(key);
-//        cout << "Null: adding at the front of the queue" << endl;
     }
     else 
     {
-//        cout << "Collision; advancing pointer" << endl;
         HashEntry* nextNode = this->hashNodes[hash];
         while (nextNode != NULL) 
         {
@@ -106,7 +108,6 @@ int main(int argc, char* argv[])
 {
   HashEntry paco = HashEntry("paco");
   HashMap pepe = HashMap(MAX_LENGTH);
-//  cout << "Key: " << paco.getKey() << "; Value: " << paco.getValue() << endl;
 
  pepe.setValue("pixas");
  pepe.setValue("pixas");
@@ -118,7 +119,6 @@ int main(int argc, char* argv[])
  pepe.setValue("pixas");
  pepe.setValue("xas");
 
- pepe.getValue("pixas");
- pepe.getValue("xas");
-
+ cout << "Value: " << pepe.getValue("pixas") << endl;
+ cout << "Value: " << pepe.getValue("xas") << endl;
 }
