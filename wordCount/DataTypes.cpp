@@ -77,6 +77,7 @@ unsigned int HashMap::getValue(string key)
         {
             return nextNode->getValue();
         }
+        else nextNode = nextNode->getNext();
     }
     return 0;
 }
@@ -98,9 +99,13 @@ void HashMap::setValue(string key)
                 nextNode->incrementCounter();
                 break;
             }
-            nextNode = nextNode->getNext();
+            if (nextNode->getNext() == NULL)
+            {
+                nextNode->nextM = new HashEntry(key);
+                break;
+            }
+            else nextNode = nextNode->getNext();
         }
-        nextNode->nextM = new HashEntry(key);
     }
 }
 
