@@ -5,6 +5,7 @@
 #include "DataTypes.h"
 #include <iostream>
 #include <fstream> 
+#include <boost/regex.hpp>
 
 #define WORD_NUMBER 20
 
@@ -17,9 +18,9 @@ struct MostRepeatedWord {
 
 class WordCount {
    MostRepeatedWord words[WORD_NUMBER]; 
-
-  public:
+  
+public:
    MostRepeatedWord* getRepeatedWords();
    bool setWord(MostRepeatedWord word);
-
+   void splitLine(string lineToSplit, string* wordList, unsigned int& wordNumber);
 };
