@@ -104,21 +104,3 @@ void HashMap::setValue(string key)
     }
 }
 
-int main(int argc, char* argv[])
-{
-  HashEntry paco = HashEntry("paco");
-  HashMap pepe = HashMap(MAX_LENGTH);
-
- pepe.setValue("pixas");
- pepe.setValue("pixas");
- pepe.setValue("pixas");
- pepe.setValue("pixas");
- pepe.setValue("xas");
- pepe.setValue("pixas");
- pepe.setValue("xas");
- pepe.setValue("pixas");
- pepe.setValue("xas");
-
- cout << "Value: " << pepe.getValue("pixas") << endl;
- cout << "Value: " << pepe.getValue("xas") << endl;
-}
