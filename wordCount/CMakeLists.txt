@@ -8,3 +8,5 @@ include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(runTests DataTypesTest.cpp)
 target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
 
+add_executable(wordCount WordCount.cpp)
+target_link_libraries(wordCount ${GTEST_LIBRARIES} pthread)
