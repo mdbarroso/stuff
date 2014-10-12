@@ -40,8 +40,8 @@ TEST(DataTypesTest, SortMap)
     for (int i = 0; i < 20; i++)
     {
         map.setValue("dfhcofsiuy");
-        if (i % 2 == 0) map.setValue("dfhcof");
         if (i % 4 == 0) map.setValue("dff");
+        if (i % 2 == 0) map.setValue("dfhcof");
     }
     map.sortHash(2, words);
     ASSERT_EQ("dfhcofsiuy", words[0].word);
