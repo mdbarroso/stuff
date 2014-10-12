@@ -13,8 +13,5 @@ find_package(Boost 1.45.0 COMPONENTS regex)
 add_executable(runTests DataTypesTest.cpp)
 target_link_libraries(runTests ${GTEST_LIBRARIES} pthread ${Boost_LIBRARIES})
 
-#add_executable(runWordCountTests WordCountTests.cpp)
-#target_link_libraries(runWordCountTests ${GTEST_LIBRARIES} pthread ${Boost_LIBRARIES})
-
 add_executable(wordCount WordCount.cpp DataTypes.cpp)
 target_link_libraries(wordCount ${GTEST_LIBRARIES} pthread ${Boost_LIBRARIES})
