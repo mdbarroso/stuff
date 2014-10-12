@@ -127,6 +127,11 @@ void HashMap::sortHash(unsigned int size, MostRepeatedWord* words)
             {
                 if (node->getValue() > words[j].occurance) 
                 {
+                    for (int k = size - 1; k > j; k--) 
+                    {
+                        words[k].occurance = words[k - 1].occurance;
+                        words[k].word = words[k - 1].word;
+                    }
                     words[j].occurance = node->getValue();
                     words[j].word = node->getKey();
                     break;

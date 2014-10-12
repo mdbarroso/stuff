@@ -9,7 +9,7 @@
 //#include <cstdio>
 using namespace std;
 
-#define	MAX_LENGTH	4096	// 4K elements
+#define	MAX_LENGTH	1024	// 1K elements
 
 class HashEntry {
   string keyM;
