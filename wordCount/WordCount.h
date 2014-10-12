@@ -11,16 +11,13 @@
 
 using namespace std;
 
-struct MostRepeatedWord {
-    string word;
-    unsigned int occurance;
-};
-
 class WordCount {
-   MostRepeatedWord words[WORD_NUMBER]; 
+   //void exchange(unsigned int index, MostRepeatedWord word);
   
 public:
-   MostRepeatedWord* getRepeatedWords();
-   bool setWord(MostRepeatedWord word);
+   MostRepeatedWord words[WORD_NUMBER];
+   WordCount();
+   bool setWord(unsigned int occurances, string word);
+   MostRepeatedWord* getWords();
    void splitLine(string lineToSplit, string* wordList, unsigned int& wordNumber);
 };

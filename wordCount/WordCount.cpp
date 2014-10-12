@@ -1,10 +1,19 @@
 #include "WordCount.h"
 
+WordCount::WordCount()
+{
+    for (int i = 0; i < WORD_NUMBER; i++) 
+    {
+        this->words[i].word = "";
+        this->words[i].occurance = 0;
+    }
+}
+
 void WordCount::splitLine(string lineToSplit, string* wordList, unsigned int& wordNumber)
 {
     int size = lineToSplit.length();
     
-    boost::regex re("\\s+");
+    boost::regex re("[ \\,\\.\\;\\(\\)\\[\\]\\{\\}]");
     boost::sregex_token_iterator i(lineToSplit.begin(), lineToSplit.end(), re, -1);
     boost::sregex_token_iterator j;
 
@@ -26,7 +35,7 @@ int main(int argc, char* argv[])
     string fileName = argv[1];
 
     WordCount* wordCount = new WordCount();
-    HashMap* map = new HashMap(3 * MAX_LENGTH);
+    HashMap* map = new HashMap(MAX_LENGTH);
 
     ifstream myfile (fileName.c_str(), ios::out|ios::binary);
     string line;
@@ -39,14 +48,21 @@ int main(int argc, char* argv[])
             string words[200];
             wordCount->splitLine(line, words, numberOfWords);
             for (int i = 0; i < numberOfWords; i++) 
-                map->setValue(words[i]);
+            {
+                unsigned int occurances = map->setValue(words[i]);
+                for (int j = 0; j < MAX_LENGTH; j++)
+                {
+                    continue;
+                }
+            }
         }
-            cout << "the was found: " << map->getValue("the") << endl;
         myfile.close();
-    cout << "of was found: " << map->getValue("of") << endl;
-        myfile.close();
-cout << "this was found: " << map->getValue("this") << endl;
-        myfile.close();
-}
+        MostRepeatedWord repeatedWords[20];
+        map->sortHash(20, repeatedWords);
+        for (int i = 0; i < WORD_NUMBER; i++) 
+        {
+            cout << repeatedWords[i].occurance << " " << repeatedWords[i].word << endl;
+        }
+    }
     else cout << "Unable to open file" << endl;
 }
