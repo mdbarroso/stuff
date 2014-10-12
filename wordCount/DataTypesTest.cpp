@@ -32,6 +32,26 @@ TEST(DataTypesTest, ForceCollision)
     ASSERT_EQ(1, map.getValue("dfh"));
 }
 
+TEST(DataTypesTest, SortMap)
+{
+    HashMap map = HashMap(3);
+    MostRepeatedWord words[2];
+    
+    for (int i = 0; i < 20; i++)
+    {
+        map.setValue("dfhcofsiuy");
+        if (i % 2 == 0) map.setValue("dfhcof");
+        if (i % 4 == 0) map.setValue("dff");
+    }
+    map.sortHash(2, words);
+    ASSERT_EQ("dfhcofsiuy", words[0].word);
+    ASSERT_EQ(20, words[0].occurance);
+    ASSERT_EQ("dfhcof", words[1].word);
+    ASSERT_EQ(10, words[1].occurance);
+    ASSERT_EQ("dff", words[2].word);
+    ASSERT_EQ(5, words[2].occurance);
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
