@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
             wordCount->splitLine(line, words, numberOfWords);
             for (int i = 0; i < numberOfWords; i++) 
             {
+                if (words[i].length() == 0) continue;
                 unsigned int occurances = map->setValue(words[i]);
                 for (int j = 0; j < MAX_LENGTH; j++)
                 {
