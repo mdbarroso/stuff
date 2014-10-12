@@ -82,12 +82,13 @@ unsigned int HashMap::getValue(string key)
     return 0;
 }
 
-void HashMap::setValue(string key)
+unsigned int HashMap::setValue(string key)
 {
     unsigned long hash = this->hashFunction(key, this->lengthM);
     if (this->hashNodes[hash] == NULL)
     {
         this->hashNodes[hash] = new HashEntry(key);
+        return 1;   // first occurance
     }
     else 
     {
@@ -97,14 +98,42 @@ void HashMap::setValue(string key)
             if (nextNode->getKey().compare(key) == 0)
             {
                 nextNode->incrementCounter();
-                break;
+                return nextNode->getValue();
             }
             if (nextNode->getNext() == NULL)
             {
                 nextNode->nextM = new HashEntry(key);
-                break;
+                return 1;   // first occurance
             }
             else nextNode = nextNode->getNext();
+        }
+    }
+}
+
+void HashMap::sortHash(unsigned int size, MostRepeatedWord* words)
+{
+    for (int i = 0; i < size; i++) 
+    {
+        words[i].occurance = 0;
+        words[i].word = "";
+    }
+
+    for (int i = 0; i < this->lengthM; i++)
+    {
+        HashEntry* node = this->hashNodes[i];
+        while(node != NULL) 
+        {
+            for (int j = 0; j < size; j++) 
+            {
+                if (node->getValue() > words[j].occurance) 
+                {
+                    words[j].occurance = node->getValue();
+                    words[j].word = node->getKey();
+                    break;
+                }
+            }
+            if (node->nextM != NULL) node = node->nextM;
+            else break;
         }
     }
 }

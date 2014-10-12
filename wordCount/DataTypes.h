@@ -25,6 +25,11 @@ public:
   void incrementCounter();
 };
 
+struct MostRepeatedWord {
+    string word;
+    unsigned int occurance;
+};
+
 class HashMap {
   
   HashEntry **hashNodes;
@@ -35,7 +40,7 @@ public:
   ~HashMap();
   int getLength();
   unsigned int getValue(string key);
-  void setValue(string key);
+  unsigned int setValue(string key);
   unsigned long hashFunction(string key, int maxSize);
-
+  void sortHash(unsigned int size, MostRepeatedWord* words);
 };
